@@ -14,6 +14,8 @@ on:
           - plan
           - apply
           - destroy
+          - validate
+          - show
 
 jobs:
   terraform:
@@ -37,6 +39,14 @@ jobs:
       - name: Terraform apply
         run: terraform apply --auto-approve
         if: "${{ github.event.inputs.terraform_operation == 'apply' }}"
+
+      - name: Terraform validate
+        run: terraform validate
+        if: "${{ github.event.inputs.terraform_operation == 'validate' }}"
+
+      - name: Terraform show
+        run: terraform show
+        if: "${{ github.event.inputs.terraform_operation == 'show' }}"
 
       - name: Terraform destroy
         run: terraform destroy --auto-approve
