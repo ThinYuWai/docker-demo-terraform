@@ -27,14 +27,14 @@ resource "docker_container" "nginx3" {
     external = 8003
   }
 }
-# resource "docker_container" "nginx4" {
-#   image = docker_image.nginx.image_id
-#   name  = "webserver4"
-#   ports {
-#     internal = 80
-#     external = 8004
-#   }
-# }
+resource "docker_container" "nginx4" {
+  image = docker_image.nginx.image_id
+  name  = var.container_name
+    ports {
+    internal = 80
+    external = 8004
+  }
+}
 # resource "docker_container" "nginx5" {
 #   image = docker_image.nginx.image_id
 #   name  = "webserver5"
