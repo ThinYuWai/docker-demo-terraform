@@ -3,8 +3,20 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      terraform_operation:
+        description: "Terraform operation: plan, apply, destroy"
+        required: true
+        default: "plan"
+        type: choice
+        options:
+          - plan
+          - apply
+          - destroy
+
 jobs:
-  terraform_apply:
+  terraform:
     runs-on: ubuntu-latest
     steps:
       - name: GET CODE
@@ -17,4 +29,18 @@ jobs:
         run: |
           terraform init
           terraform apply -auto-approve
+
+      - name: Terraform plan
+        run: terraform plan
+        if: "${{ github.event.inputs.terraform_operation == 'plan' }}"
+
+      - name: Terraform apply
+        run: terraform apply --auto-approve
+        if: "${{ github.event.inputs.terraform_operation == 'apply' }}"
+
+      - name: Terraform destroy
+        run: terraform destroy --auto-approve
+        if: "${{ github.event.inputs.terraform_operation == 'destroy' }}"
+
+      
 
