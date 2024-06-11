@@ -8,7 +8,7 @@ output "container_id2" {
   value       = docker_container.nginx2.id
 }
 
-output "container_id" {
+output "container_id3" {
   description = "ID of the Docker container"
   value       = docker_container.nginx3.id
 }
